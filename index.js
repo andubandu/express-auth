@@ -3,7 +3,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import path from 'path';
-// Import routes
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
 import authRoutes from './routes/auth.js';
