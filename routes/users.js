@@ -32,13 +32,15 @@ router.get('/:username', async (req, res) => {
 
 router.delete('/del/:id', authenticateToken, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    const user = await User.findOneAndDelete({ _id: req.params.id }); 
     if (!user) return res.status(404).json({ error: 'User not found' });
+
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ error: 'Error deleting user' });
   }
 });
+
 
 router.put(
   '/upd/:id',
