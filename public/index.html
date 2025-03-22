@@ -82,7 +82,7 @@
     </section>
 
     <section id="endpoints" class="mb-16">
-      <h2 class="text-3xl font-bold text-white mb-6">Endpoints</h2>
+      <h2 class="text-3xl font-bold text-white mb-6">Endpoints <span class="text-sm">(🔒= JWT is required)</span></h2>
       
       <div class="mb-12">
         <h3 class="text-2xl font-semibold text-white mb-4">Authentication</h3>
@@ -170,16 +170,20 @@
             <pre class="bg-slate-900 p-4 rounded text-emerald-400 overflow-x-auto">
 [
   {
-    "id": "user_12345",
-    "username": "johndoe",
-    "email": "john@example.com",
-    "avatar": "https://..."
+    "_id": "67d5ba577dcadeaaecaec5b3",
+    "username": "mug",
+    "email": "hilariousaction@gmail.com",
+    "avatar": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1742060118/sy7qnd8qmpplk5jsuwmp.gif",
+    "createdAt": "2025-03-15T17:35:19.514Z",
+    "__v": 0
   },
   {
-    "id": "user_67890",
-    "username": "janedoe",
-    "email": "jane@example.com",
-    "avatar": "https://..."
+    "_id": "67dc556cfdafba7f4952a8a7",
+    "username": "johndoe",
+    "email": "john@example.com",
+    "avatar": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1739880832/1200px-Default_pfp.svg_rv2dcl.png",
+    "createdAt": "2025-03-20T17:50:36.609Z",
+    "__v": 0
   }
 ]</pre>
           </div>
@@ -196,18 +200,13 @@
             <h4 class="text-white font-medium mb-2">Response:</h4>
             <pre class="bg-slate-900 p-4 rounded text-emerald-400 overflow-x-auto">
 {
-  "id": "user_12345",
-  "username": "johndoe",
-  "email": "john@example.com",
-  "avatar": "https://...",
-  "posts": [
-    {
-      "id": "post_12345",
-      "title": "Hello World",
-      "content": "My first post!"
-    }
-  ]
-}</pre>
+   "_id": "67d5ba577dcadeaaecaec5b3",
+   "username": "mug",
+   "email": "hilariousaction@gmail.com",
+   "avatar": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1742060118/sy7qnd8qmpplk5jsuwmp.gif",
+   "createdAt": "2025-03-15T17:35:19.514Z",
+   "__v": 0
+  },</pre>
           </div>
         </div>
 
@@ -215,8 +214,8 @@
         <div class="bg-slate-800/50 backdrop-blur rounded-lg p-6 mb-6 border border-slate-700">
           <div class="flex items-center space-x-4 mb-4">
             <span class="bg-yellow-500 px-3 py-1 rounded-full text-sm font-medium text-white">PUT</span>
-            <code class="text-emerald-400">/users/upd/:id</code>
-            <span class="text-slate-400">Update user profile</span>
+            <code class="text-emerald-400">/users/upd/:id 🔒</code>
+            <span class="text-slate-400">Update user profile, atleast ONE field must be updated</span>
           </div>
           <div class="grid md:grid-cols-2 gap-6">
             <div>
@@ -242,6 +241,21 @@
         </div>
       </div>
 
+      <div class="bg-slate-800/50 backdrop-blur rounded-lg p-6 mb-6 border border-slate-700">
+        <div class="flex items-center space-x-4 mb-4">
+          <span class="bg-red-500 px-3 py-1 rounded-full text-sm font-medium text-white">DELETE</span>
+          <code class="text-emerald-400">/users/del/:id 🔒</code>
+          <span class="text-slate-400">Delete user by ID (Only works on the logged-in user's ID)</span>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-2">Response:</h4>
+          <pre class="bg-slate-900 p-4 rounded text-emerald-400 overflow-x-auto">
+// Nothing as it is a 204 No content and if you were to submit this in postman you would see nothing :&rpar;
+          </pre>
+        </div>
+      </div>
+    </div>
+
       <!-- Posts Endpoints -->
       <div>
         <h3 class="text-2xl font-semibold text-white mb-4">Posts</h3>
@@ -250,7 +264,7 @@
         <div class="bg-slate-800/50 backdrop-blur rounded-lg p-6 mb-6 border border-slate-700">
           <div class="flex items-center space-x-4 mb-4">
             <span class="bg-green-500 px-3 py-1 rounded-full text-sm font-medium text-white">POST</span>
-            <code class="text-emerald-400">/posts/new</code>
+            <code class="text-emerald-400">/posts/new 🔒</code>
             <span class="text-slate-400">Create new post</span>
           </div>
           <div class="grid md:grid-cols-2 gap-6">
@@ -266,16 +280,19 @@
             <div>
               <h4 class="text-white font-medium mb-2">Response:</h4>
               <pre class="bg-slate-900 p-4 rounded text-emerald-400 overflow-x-auto">
+// via postman
 {
-  "id": "post_12345",
-  "title": "My First Post",
-  "content": "Hello everyone!",
-  "media": "https://...",
-  "author": {
-    "id": "user_12345",
-    "username": "johndoe"
-  },
-  "createdAt": "2025-03-15T14:30:00Z"
+  "title": "Kratos",
+  "content": "Kratos",
+  "media": {
+  "url": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1742638558/ax20f12vzltayyx8lagd.jpg",
+  "type": "image"
+},
+   "author": "67dc556cfdafba7f4952a8a7",
+   "_id": "67de8dde2006267f7ee5de49",
+   "createdAt": "2025-03-22T10:15:58.842Z",
+   "updatedAt": "2025-03-22T10:15:58.842Z",
+   "__v": 0
 }</pre>
             </div>
           </div>
@@ -291,39 +308,93 @@
           <div>
             <h4 class="text-white font-medium mb-2">Response:</h4>
             <pre class="bg-slate-900 p-4 rounded text-emerald-400 overflow-x-auto">
-[
-  {
-    "id": "post_12345",
-    "title": "My First Post",
-    "content": "Hello everyone!",
-    "media": "https://...",
-    "author": {
-      "id": "user_12345",
-      "username": "johndoe"
-    },
-    "createdAt": "2025-03-15T14:30:00Z"
-  },
-  {
-    "id": "post_67890",
-    "title": "Another Post",
-    "content": "Having a great day!",
-    "media": "https://...",
-    "author": {
-      "id": "user_67890",
-      "username": "janedoe"
-    },
-    "createdAt": "2025-03-15T15:45:00Z"
-  }
-]</pre>
+        [
+          {
+            "media": {
+              "url": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1742638558/ax20f12vzltayyx8lagd.jpg",
+              "type": "image"
+            },
+            "_id": "67de8dde2006267f7ee5de49",
+            "title": "Kratos",
+            "content": "Kratos",
+            "author": {
+              "_id": "67dc556cfdafba7f4952a8a7",
+              "username": "johndoe",
+              "email": "john@example.com",
+              "avatar": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1739880832/1200px-Default_pfp.svg_rv2dcl.png",
+              "createdAt": "2025-03-20T17:50:36.609Z",
+              "__v": 0
+            },
+            "createdAt": "2025-03-22T10:15:58.842Z",
+            "updatedAt": "2025-03-22T10:15:58.842Z",
+            "__v": 0
+          },
+          {
+            "media": {
+              "url": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1742639124/bxtwvvel9zx7mvesj8dt.png",
+              "type": "image"
+            },
+            "_id": "67de8fbfb3ffbb439a12381d",
+            "title": "hello world",
+            "content": "demonstration",
+            "author": {
+              "_id": "67d5ba577dcadeaaecaec5b3",
+              "username": "mug",
+              "email": "hilariousaction@gmail.com",
+              "avatar": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1742060118/sy7qnd8qmpplk5jsuwmp.gif",
+              "createdAt": "2025-03-15T17:35:19.514Z",
+              "__v": 0
+            },
+            "createdAt": "2025-03-22T10:23:59.631Z",
+            "updatedAt": "2025-03-22T10:25:24.534Z",
+            "__v": 0
+          }
+        ]
+            </pre>
           </div>
         </div>
+        
+        <!-- Get Post by ID -->
+<div class="bg-slate-800/50 backdrop-blur rounded-lg p-6 mb-6 border border-slate-700">
+  <div class="flex items-center space-x-4 mb-4">
+    <span class="bg-blue-500 px-3 py-1 rounded-full text-sm font-medium text-white">GET</span>
+    <code class="text-emerald-400">/posts/:id</code>
+    <span class="text-slate-400">Get a specific post by ID</span>
+  </div>
+  <div>
+    <h4 class="text-white font-medium mb-2">Response:</h4>
+    <pre class="bg-slate-900 p-4 rounded text-emerald-400 overflow-x-auto">
+{
+  "_id": "67de8dde2006267f7ee5de49",
+  "title": "Kratos",
+  "content": "Kratos",
+  "author": {
+    "_id": "67dc556cfdafba7f4952a8a7",
+    "username": "johndoe",
+    "email": "john@example.com",
+    "avatar": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1739880832/1200px-Default_pfp.svg_rv2dcl.png",
+    "createdAt": "2025-03-20T17:50:36.609Z",
+    "__v": 0
+  },
+  "media": {
+    "url": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1742638558/ax20f12vzltayyx8lagd.jpg",
+    "type": "image"
+  },
+  "createdAt": "2025-03-22T10:15:58.842Z",
+  "updatedAt": "2025-03-22T10:15:58.842Z",
+  "__v": 0
+}
+    </pre>
+  </div>
+</div>
+
 
         <!-- Update Post -->
         <div class="bg-slate-800/50 backdrop-blur rounded-lg p-6 mb-6 border border-slate-700">
           <div class="flex items-center space-x-4 mb-4">
             <span class="bg-yellow-500 px-3 py-1 rounded-full text-sm font-medium text-white">PUT</span>
-            <code class="text-emerald-400">/posts/upd/:id</code>
-            <span class="text-slate-400">Update existing post</span>
+            <code class="text-emerald-400">/posts/upd/:id 🔒</code>
+            <span class="text-slate-400">Update existing post, atleast ONE field has to be updated</span>
           </div>
           <div class="grid md:grid-cols-2 gap-6">
             <div>
@@ -339,18 +410,40 @@
               <h4 class="text-white font-medium mb-2">Response:</h4>
               <pre class="bg-slate-900 p-4 rounded text-emerald-400 overflow-x-auto">
 {
-  "id": "post_12345",
-  "title": "Updated Post Title",
-  "content": "Updated content here!",
-  "media": "https://...",
-  "author": {
-    "id": "user_12345",
-    "username": "johndoe"
-  },
-  "updatedAt": "2025-03-15T16:30:00Z"
+     "media": {
+         "url": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1742639124/bxtwvvel9zx7mvesj8dt.png",
+         "type": "image"
+     },
+     "_id": "67de8fbfb3ffbb439a12381d",
+     "title": "hello world",
+     "content": "demonstration",
+     "author": {
+         "_id": "67d5ba577dcadeaaecaec5b3",
+         "username": "mug",
+         "email": "hilariousaction@gmail.com",
+         "avatar": "https://res.cloudinary.com/dyuabsnoo/image/upload/v1742060118/sy7qnd8qmpplk5jsuwmp.gif",
+         "createdAt": "2025-03-15T17:35:19.514Z",
+         "__v": 0
+     },
+     "createdAt": "2025-03-22T10:23:59.631Z",
+     "updatedAt": "2025-03-22T10:25:24.534Z",
+     "__v": 0
 }</pre>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="bg-slate-800/50 backdrop-blur rounded-lg p-6 mb-6 border border-slate-700">
+        <div class="flex items-center space-x-4 mb-4">
+          <span class="bg-red-500 px-3 py-1 rounded-full text-sm font-medium text-white">DELETE</span>
+          <code class="text-emerald-400">/posts/del/:id 🔒</code>
+          <span class="text-slate-400">Delete post by ID (Only works for the post's author)</span>
+        </div>
+        <div>
+          <h4 class="text-white font-medium mb-2">Response:</h4>
+          <pre class="bg-slate-900 p-4 rounded text-emerald-400 overflow-x-auto">
+// Nothing as it is a 204 No content and if you were to submit this in postman you would see nothing :&rpar;
+          </pre>
         </div>
       </div>
     </section>
