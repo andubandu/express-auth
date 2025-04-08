@@ -32,15 +32,19 @@ router.get('/:username', async (req, res) => {
 
 router.delete('/del/:id', authenticateToken, async (req, res) => {
   try {
-    const user = await User.findOneAndDelete({ _id: req.params.id }); 
-    if (!user) return res.status(404).json({ error: 'User not found' });
+    console.log('Deleting user with ID:', req.params.id); // Debug log
 
-    res.status(204).send();
+    const user = await User.findOneAndDelete({ _id: req.params.id });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User and associated posts deleted' });
   } catch (error) {
+    console.error('Error deleting user:', error); // Debug log
     res.status(500).json({ error: 'Error deleting user' });
   }
 });
-
 
 router.put(
   '/upd/:id',

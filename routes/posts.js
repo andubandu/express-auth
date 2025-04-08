@@ -1,5 +1,6 @@
 import express from 'express';
 import Post from '../models/Post.js';
+import User from '../models/User.js'; // Import User model
 import { authenticateToken } from '../middleware/auth.js';
 import { upload, handleFileUpload } from '../middleware/upload.js';
 
@@ -30,30 +31,31 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post(
-  '/new',
-  authenticateToken,
-  upload.single('media'),
-  handleFileUpload,
-  async (req, res) => {
-    try {
-      const post = new Post({
-        ...req.body,
-        author: req.user.id,
-        media: req.fileUrl
-          ? {
-              url: req.fileUrl,
-              type: req.fileType,
-            }
-          : undefined,
-      });
-      await post.save();
-      res.status(201).json(post);
-    } catch (error) {
-      res.status(500).json({ error: 'Error creating post' });
+router.post('/new', authenticateToken, async (req, res) => {
+  try {
+    const { title, content, media } = req.body;
+
+    // Validate required fields
+    if (!title || !content) {
+      return res.status(400).json({ error: 'Title and content are required' });
     }
+
+    // Create a new post
+    const post = new Post({
+      title,
+      content,
+      media,
+      author: req.user.id, // Dynamically set the author field
+    });
+
+    await post.save();
+
+    res.status(201).json({ message: 'Post created successfully', post });
+  } catch (error) {
+    console.error('Error creating post:', error);
+    res.status(500).json({ error: 'Error creating post' });
   }
-);
+});
 
 router.delete('/del/:id', authenticateToken, async (req, res) => {
   try {

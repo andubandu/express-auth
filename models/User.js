@@ -10,9 +10,23 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('findOneAndDelete', async function (next) {
-  const userId = this.getQuery()._id;
-  await Post.deleteMany({ author: userId }); 
-  next();
+  try {
+    const userId = this.getQuery()._id;
+    console.log('Deleting posts for user ID:', userId); // Debug log
+    await Post.deleteMany({ author: userId }); // Delete associated posts
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+userSchema.pre('remove', async function (next) {
+  try {
+    await Post.deleteMany({ userId: this._id });
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default mongoose.model('User', userSchema);
